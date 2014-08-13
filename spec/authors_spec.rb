@@ -38,5 +38,17 @@ describe Author do
     another_test_author.delete
     expect(Author.all).to eq [test_author]
   end
+  
+  it 'returns all books by an author' do
+    test_book = Book.new({'title' => 'Carrie'})
+    test_book.save
+    another_test_book = Book.new({'title' => 'It'})
+    another_test_book.save
+    test_author = Author.new({'name' => 'Margaret Mitchell'})
+    test_author.save
+    test_book.add_author(test_author)
+    another_test_book.add_author(test_author)
+    expect(test_author.books).to eq [test_book, another_test_book]
+  end
 
 end
