@@ -4,13 +4,14 @@ require 'pg'
 
 DB = PG.connect({:dbname => 'library_test'})
 
-describe Book do
-  
+
   RSpec.configure do |config|
     config.after(:each) do
       DB.exec("DELETE FROM books *;")
     end
   end
+
+describe Book do
   
   it 'will initialize a book instance with a title' do
     test_book = Book.new({'title' => 'Gone With the Wind'})
@@ -26,6 +27,15 @@ describe Book do
     test_book = Book.new({'title' => 'Gone With the Wind'})
     test_book.save
     expect(Book.all).to eq [test_book]
+  end
+  
+  it 'will delete a book' do
+    test_book = Book.new({'title' => 'Gone With the Wind'})
+    another_test_book = Book.new({'title' => 'Animal Farm'})
+    test_book.save
+    another_test_book.save
+    test_book.delete
+    expect(Book.all).to eq [another_test_book]
   end
 
 end

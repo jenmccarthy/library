@@ -7,11 +7,12 @@ class Book
     @id = attributes['id'].to_i
   end
   
-  def self.all 
+  def Book.all 
     books = []
     results = DB.exec("SELECT * FROM books;")
     results.each do |result|
-      books << Book.new(result)
+      current_book = Book.new(result)
+      books << current_book
     end  
     books
   end
@@ -23,6 +24,10 @@ class Book
   
   def ==(another_book)
     @title == another_book.title && @id == another_book.id
+  end
+  
+  def delete
+    DB.exec("DELETE FROM books WHERE id = #{self.id};")
   end
  
 end
