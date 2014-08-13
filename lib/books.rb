@@ -29,5 +29,20 @@ class Book
   def delete
     DB.exec("DELETE FROM books WHERE id = #{self.id};")
   end
- 
+  
+  def add_author(input_author)
+    DB.exec("INSERT INTO books_authors (book_id, author_id) VALUES (#{self.id}, #{input_author.id});")
+  end
+  
+  def authors
+    authors = []
+    results = DB.exec("SELECT authors.* FROM books
+                        JOIN books_authors ON (books.id = books_authors.book_id)
+                        JOIN authors ON (books_authors.author_id = authors.id)
+                        WHERE books.id = #{self.id}")
+    results.each do |result|
+      authors << Author.new(result)
+    end
+    authors
+  end
 end

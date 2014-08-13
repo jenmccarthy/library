@@ -38,5 +38,14 @@ describe Book do
     test_book.delete
     expect(Book.all).to eq [another_test_book]
   end
+  
+  it 'will add an author to a book instance' do
+    test_book = Book.new({'title' => 'Gone With the Wind'})
+    test_book.save
+    test_author = Author.new({'name' => 'Margaret Mitchell'})
+    test_author.save
+    test_book.add_author(test_author)
+    expect(test_book.authors).to eq [test_author]
+  end
 
 end
