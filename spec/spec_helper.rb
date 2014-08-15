@@ -1,7 +1,6 @@
 require 'rspec'
 require 'books'
 require 'authors'
-require 'copies'
 require 'pg'
 
 DB = PG.connect({:dbname => 'library_test'})
@@ -11,6 +10,6 @@ DB = PG.connect({:dbname => 'library_test'})
     config.after(:each) do
       DB.exec("DELETE FROM books *;")
       DB.exec("DELETE FROM authors *;")
-      DB.exec("DELETE FROM copies *;")
+      DB.exec("DELETE FROM books_authors *;")
     end
   end
