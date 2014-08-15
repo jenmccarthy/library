@@ -1,4 +1,5 @@
 require './lib/authors.rb'
+require 'pry'
 
 class Book 
   
@@ -42,11 +43,16 @@ class Book
     results = DB.exec("SELECT authors.* FROM books
                       JOIN books_authors ON (books.id = books_authors.book_id)
                       JOIN authors ON (books_authors.author_id = authors.id)
-                      WHERE books.id = #{self.id}")
+                      WHERE books.id = #{self.id};")
     results.each do |result|
       authors << Author.new(result)
     end
     authors
+  end
+  
+  def add_copy(input_copy)
+    total = self.copies.to_i + input_copy
+    DB.exec("UPDATE books SET copies = #{total} WHERE id = #{self.id};")
   end
 
 end

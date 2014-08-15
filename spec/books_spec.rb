@@ -36,5 +36,15 @@ describe Book do
     test_book.add_author(test_author)
     expect(test_book.authors).to eq [test_author]
   end
-
+  
+  it 'will add a copy to a book' do
+    test_book = Book.new({'title' => 'Men Are From Mars', 'copies' => 1})
+    test_book.save
+    test_author = Author.new({'name' => 'Minnie Mouse'})
+    test_author.save
+    test_book.add_author(test_author)
+    test_book.add_copy(1)
+    expect(test_book.copies).to eq 2
+  end
+  
 end
