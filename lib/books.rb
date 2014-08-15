@@ -1,3 +1,5 @@
+require './lib/authors.rb'
+
 class Book 
   
   attr_accessor :title, :id
