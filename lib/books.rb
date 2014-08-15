@@ -2,11 +2,12 @@ require './lib/authors.rb'
 
 class Book 
   
-  attr_accessor :title, :id
+  attr_accessor :title, :id, :copies
 
   def initialize(attributes) 
     @title = attributes['title']
     @id = attributes['id'].to_i
+    @copies = attributes['copies'].to_i
   end
   
   def Book.all 
@@ -20,7 +21,7 @@ class Book
   end
   
   def save
-    results = DB.exec("INSERT INTO books (title) VALUES ('#{@title}') RETURNING id;")
+    results = DB.exec("INSERT INTO books (title, copies) VALUES ('#{@title}', #{@copies}) RETURNING id;")
     @id = results.first['id'].to_i
   end
   
