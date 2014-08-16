@@ -1,5 +1,3 @@
-require './lib/books.rb'
-
 class Author
   
   attr_accessor :name, :id

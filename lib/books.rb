@@ -27,7 +27,7 @@ class Book
   end
   
   def ==(another_book)
-    @title == another_book.title && @id == another_book.id
+    @title == another_book.title
   end
   
   def delete
@@ -50,9 +50,9 @@ class Book
     authors
   end
   
-  def add_copy(input_copy)
-    total = self.copies.to_i + input_copy
-    DB.exec("UPDATE books SET copies = #{total} WHERE id = #{self.id};")
+  def update_copy(input_copy)
+    @copies = self.copies + input_copy.to_i
+    DB.exec("UPDATE books SET copies = #{self.copies} WHERE id = #{self.id};")
   end
-
+  
 end
