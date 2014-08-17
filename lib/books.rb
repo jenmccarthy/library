@@ -1,5 +1,4 @@
 require './lib/authors.rb'
-require 'pry'
 
 class Book 
   

@@ -44,7 +44,6 @@ describe Book do
     test_author.save
     test_book.add_author(test_author)
     test_book.update_copy(1)
-    test_book.save
     expect(test_book.copies).to eq 2
   end
   
